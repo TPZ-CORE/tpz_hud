@@ -41,8 +41,8 @@ end)
 
 
 AddEventHandler("tpz_metabolism:getCurrentMetabolismValues", function(hunger, thirst, stress, alcohol)
-	ClientData.Thirst  = hunger
-	ClientData.Hunger  = thirst
+	ClientData.Hunger  = hunger
+	ClientData.Thirst  = thirst
 	ClientData.Stress  = stress
 	ClientData.Alcohol = alcohol
 end)
