@@ -1,6 +1,6 @@
 Config = {}
 
-Config.DevMode                   = true
+Config.DevMode                   = false
 
 Config.DisplayStress             = true
 
@@ -24,5 +24,5 @@ Config.tp_realistic_flieswamping = false
 Config.TemperatureColors = {
     ['Default'] = "rgba(0, 0, 0, 0.623)",
     ['Cold']    = {temp = 0,  rgba = "rgb(22, 62, 126)" },
-    ['Hot']     = {temp = 38, rgba = "rgb(129, 31, 31)" },
+    ['Hot']     = {temp = 40, rgba = "rgb(129, 31, 31)" },
 }
