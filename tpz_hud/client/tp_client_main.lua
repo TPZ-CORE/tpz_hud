@@ -220,6 +220,7 @@ Citizen.CreateThread(function()
 						tempColor = tempPercentColor,
 	
 						stress = ClientData.Stress,
+						alcohol = ClientData.Alcohol,
 	
 						voice = (ClientData.VoiceRange * 100) / 32,
 					})
@@ -238,7 +239,8 @@ Citizen.CreateThread(function()
 						tempColor = tempPercentColor,
 	
 						stress = ClientData.Stress,
-	
+						alcohol = ClientData.Alcohol,
+
 						voice = (ClientData.VoiceRange * 100) / 32,
 					})
 
@@ -273,7 +275,7 @@ Citizen.CreateThread(function()
 
 					ClientData.IndicatorStatus = false
 
-					SendNUIMessage({ action = "SET_HUD_DISPLAY_STATUS", status = false, hasLeveling = ClientData.HasLevelingLoaded, hasDirtSystem = Config.tp_realistic_flieswamping, hasStress = Config.DisplayStress})
+					SendNUIMessage({ action = "SET_HUD_DISPLAY_STATUS", status = false, hasLeveling = ClientData.HasLevelingLoaded, hasDirtSystem = Config.tp_realistic_flieswamping, hasStress = Config.DisplayStress, hasAlcohol = true })
 
 					SendNUIMessage({ action = "SET_LEVELING_DISPLAY_STATUS", status = false})
 
@@ -284,7 +286,7 @@ Citizen.CreateThread(function()
 
 					ClientData.IndicatorStatus = true
 
-					SendNUIMessage({ action = "SET_HUD_DISPLAY_STATUS", status = true, hasLeveling = ClientData.HasLevelingLoaded, hasDirtSystem = Config.tp_realistic_flieswamping, hasStress = Config.DisplayStress})
+					SendNUIMessage({ action = "SET_HUD_DISPLAY_STATUS", status = true, hasLeveling = ClientData.HasLevelingLoaded, hasDirtSystem = Config.tp_realistic_flieswamping, hasStress = Config.DisplayStress, hasAlcohol = true})
 
 					if ClientData.HasLevelingLoaded then
 						SendNUIMessage({ action = "SET_LEVELING_DISPLAY_STATUS", status = true})
