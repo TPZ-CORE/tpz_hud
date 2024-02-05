@@ -94,7 +94,7 @@ body {
 
 }
 
-#varDirt {
+#varAlcohol {
     position: absolute;
     left: 28.5%;
     margin-top: 51%;
@@ -103,7 +103,14 @@ body {
 
 }
 
+#varDirt {
+    position: absolute;
+    left: 32%;
+    margin-top: 51%;
 
+    background-color: #161616a8;
+
+}
 
 
 #varHunting {
