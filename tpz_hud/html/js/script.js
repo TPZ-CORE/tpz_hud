@@ -56,11 +56,23 @@ window.addEventListener('message', function (event) {
             
         }
 
+        if (event.data.hasAlcohol) {
+            event.data.status ? $('#varAlcohol').show() : $('#varAlcohol').hide();
+            
+            if (!event.data.hasStress) {
+                $('#varAlcohol').css('left', '25%');
+            }
+
+        }else{
+            $('#varAlcohol').hide();
+        }
+        
+
         if (event.data.hasDirtSystem) {
             event.data.status ? $('#varDirt').show() : $('#varDirt').hide();
 
             if (!event.data.hasStress) {
-                $('#varDirt').css('left', '25%');
+                $('#varDirt').css('left', '28.5%');
             }
             
         }else{
@@ -73,6 +85,7 @@ window.addEventListener('message', function (event) {
         }else{
             $('#varStress').hide();
         }
+
 
     } else if (event.data.action == 'UPDATE_VOICE_TALK_STATUS') {
 
@@ -108,6 +121,17 @@ window.addEventListener('message', function (event) {
             $("#varStress").attr("class", "c100 p"+ stress);
 
             $("#varStress").css("background-color", stress >= 85 ? "#750c0ca" : "#161616a8");
+        }
+
+        
+        if(event.data.alcohol) {
+            let alcohol = event.data.alcohol;
+
+            alcohol = (alcohol == null || alcohol == 0) ? -1 : alcohol;
+
+            $("#varAlcohol").attr("class", "c100 p"+ alcohol);
+
+            $("#varAlcohol").css("background-color", alcohol >= 85 ? "#750c0ca" : "#161616a8");
         }
 
         if (event.data.dirt) {
