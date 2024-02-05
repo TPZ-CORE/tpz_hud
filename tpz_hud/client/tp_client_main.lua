@@ -190,6 +190,10 @@ Citizen.CreateThread(function()
 					ClientData.Stress = -1
 				end
 
+			        if ClientData.Alcohol == 0 then
+					ClientData.Alcohol = -1
+				end
+					
 				if myDirtLevel == 0 then
 					myDirtLevel = -1
 				end
