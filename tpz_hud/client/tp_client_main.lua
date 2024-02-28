@@ -195,8 +195,8 @@ Citizen.CreateThread(function()
 					ClientData.Alcohol = -1
 				end
 
-				if myDirtLevel == 0 then
-					myDirtLevel = -1
+				if ClientData.DirtLevel == 0 then
+					ClientData.DirtLevel = -1
 				end
 
 				if ClientData.HasLevelingLoaded and Config.tpz_leveling then
@@ -219,7 +219,7 @@ Citizen.CreateThread(function()
 						hunger = ClientData.Hunger,
 						thirst = ClientData.Thirst,
 	
-						dirt   = myDirtLevel,
+						dirt   = ClientData.DirtLevel,
 	
 						temp = math.floor(ClientData.Temperature).."°C",
 						tempColor = tempPercentColor,
@@ -238,7 +238,7 @@ Citizen.CreateThread(function()
 						hunger = ClientData.Hunger,
 						thirst = ClientData.Thirst,
 	
-						dirt   = myDirtLevel,
+						dirt   = ClientData.DirtLevel,
 	
 						temp = math.floor(ClientData.Temperature).."°C",
 						tempColor = tempPercentColor,
