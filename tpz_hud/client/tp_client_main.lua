@@ -35,7 +35,7 @@ end)
 AddEventHandler("tpz_metabolism:isLoaded", function()
 	ClientData.HasMetabolismLoaded = true
 
-	SendNUIMessage({ action = "SET_HUD_DISPLAY_STATUS", status = true, hasLeveling = ClientData.HasLevelingLoaded, hasDirtSystem = Config.tp_realistic_flieswamping, hasStress = Config.DisplayStress})
+	SendNUIMessage({ action = "SET_HUD_DISPLAY_STATUS", status = true, hasLeveling = ClientData.HasLevelingLoaded, hasDirtSystem = Config.tp_dirtsystem, hasStress = Config.DisplayStress})
 	ClientData.HasHUDDisplayed = true
 end)
 
@@ -98,7 +98,7 @@ Citizen.CreateThread(function ()
 
 	DisplayRadar(false)
 
-	SendNUIMessage({ action = "SET_HUD_DISPLAY_STATUS", status = false, hasLeveling = ClientData.HasLevelingLoaded, hasDirtSystem = Config.tp_realistic_flieswamping, hasStress = Config.DisplayStress})
+	SendNUIMessage({ action = "SET_HUD_DISPLAY_STATUS", status = false, hasLeveling = ClientData.HasLevelingLoaded, hasDirtSystem = Config.tp_dirtsystem, hasStress = Config.DisplayStress})
 
 	if Config.DevMode then
 
@@ -109,7 +109,7 @@ Citizen.CreateThread(function ()
 			ClientData.HasMetabolismLoaded = true
 			ClientData.HasLevelingLoaded   = true
 
-			SendNUIMessage({ action = "SET_HUD_DISPLAY_STATUS", status = true, hasLeveling = ClientData.HasLevelingLoaded, hasDirtSystem = Config.tp_realistic_flieswamping, hasStress = Config.DisplayStress})
+			SendNUIMessage({ action = "SET_HUD_DISPLAY_STATUS", status = true, hasLeveling = ClientData.HasLevelingLoaded, hasDirtSystem = Config.tp_dirtsystem, hasStress = Config.DisplayStress})
 
 			ClientData.HasHUDDisplayed     = true
 
@@ -153,9 +153,9 @@ Citizen.CreateThread(function()
 
 				local myDirtLevel = 0
 
-				if Config.tp_realistic_flieswamping then
+				if Config.tp_dirtsystem then
 	
-					myDirtLevel   = exports.tp_realistic_flieswamping:GetDirtLevel()
+					myDirtLevel   = exports.tp_dirtsystem:GetDirtLevel()
 	
 					if not myDirtLevel or myDirtLevel < 100 then
 						myDirtLevel = -1
@@ -279,7 +279,7 @@ Citizen.CreateThread(function()
 
 					ClientData.IndicatorStatus = false
 
-					SendNUIMessage({ action = "SET_HUD_DISPLAY_STATUS", status = false, hasLeveling = ClientData.HasLevelingLoaded, hasDirtSystem = Config.tp_realistic_flieswamping, hasStress = Config.DisplayStress })
+					SendNUIMessage({ action = "SET_HUD_DISPLAY_STATUS", status = false, hasLeveling = ClientData.HasLevelingLoaded, hasDirtSystem = Config.tp_dirtsystem, hasStress = Config.DisplayStress })
 
 					SendNUIMessage({ action = "SET_LEVELING_DISPLAY_STATUS", status = false})
 
@@ -290,7 +290,7 @@ Citizen.CreateThread(function()
 
 					ClientData.IndicatorStatus = true
 
-					SendNUIMessage({ action = "SET_HUD_DISPLAY_STATUS", status = true, hasLeveling = ClientData.HasLevelingLoaded, hasDirtSystem = Config.tp_realistic_flieswamping, hasStress = Config.DisplayStress })
+					SendNUIMessage({ action = "SET_HUD_DISPLAY_STATUS", status = true, hasLeveling = ClientData.HasLevelingLoaded, hasDirtSystem = Config.tp_dirtsystem, hasStress = Config.DisplayStress })
 
 					if ClientData.HasLevelingLoaded then
 						SendNUIMessage({ action = "SET_LEVELING_DISPLAY_STATUS", status = true})
