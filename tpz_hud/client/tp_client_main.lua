@@ -12,6 +12,8 @@ ClientData = {
 	Alcohol                   = 0,
 	Temperature               = 0,
 
+	DirtLevel                 = 0,
+
 	IsTalking                 = false,
 	VoiceRange                = Config.DefaultMicRange,
 
@@ -52,6 +54,9 @@ AddEventHandler("tpz_metabolism:getCurrentTemperature", function(temperature)
 
 end)
 
+AddEventHandler("tp_dirtsystem:getCurrentDirtLevel", function(dirtLevel)
+	ClientData.DirtLevel = dirtLevel
+end)
 
 if not Config.SaltyChat then
 
@@ -151,16 +156,12 @@ Citizen.CreateThread(function()
 
 			if not ClientData.HasHiddenStatus and ClientData.HasHUDDisplayed and ClientData.IndicatorStatus and not isPaused and not isInCimematicMode and IsAppActive(`MAP`) ~= 1 and not IsScreenFadedOut() then
 
-				local myDirtLevel = 0
-
 				if Config.tp_dirtsystem then
 	
-					myDirtLevel   = exports.tp_dirtsystem:GetDirtLevel()
-	
-					if not myDirtLevel or myDirtLevel < 100 then
-						myDirtLevel = -1
+					if not ClientData.DirtLevel or ClientData.DirtLevel < 100 then
+						ClientData.DirtLevel = -1
 					else
-						myDirtLevel = myDirtLevel / 100
+						ClientData.DirtLevel = ClientData.DirtLevel / 100
 					end
 	
 				end
