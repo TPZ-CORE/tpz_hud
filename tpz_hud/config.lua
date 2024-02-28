@@ -16,9 +16,8 @@ Config.UpdateHUDDelay            = 1000 -- Currently updating HUD every 1 second
 -- If you're having tpz_leveling then set it to true.
 Config.tpz_leveling              = true
 
--- If you're having tp_realistic_flieswamping then set it to true.
-Config.tp_realistic_flieswamping = false
-
+-- If you're having tp_dirtsystem then set it to true.
+Config.tp_dirtsystem = false
 
 -- You can use rgb, rgba & hashes.
 Config.TemperatureColors = {
