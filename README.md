@@ -14,6 +14,20 @@
 2. Add `ensure tpz_hud` after the **REQUIREMENTS** in the resources.cfg or server.cfg, depends where your scripts are located.
 
 
+## Commands
+
+- The specified command hides the minimap and the whole HUd UI display. 
+- Use the same command to enable.
+`/hud:hideall`
+
+- The specified command hides only the UI display and not the minimap.
+- Use the same command to enable. 
+`/hud:hidenui`
+
+- The specified command hides **ONLY** the leveling UI display.
+- Use the same command to enable.
+`/hud:hideleveling`
+
 ## Screenshot Displays
 
 ![image](https://github.com/TPZ-CORE/tpz_hud/assets/152554963/2a655b8b-ba77-44c1-a09a-32e1d8fd1104)
