@@ -21,7 +21,6 @@
 | /hud:hideall      | The specified command hides the minimap and the whole HUd UI display (Use the same command to enable). |
 | /hud:hidenui      | The specified command hides only the UI display and not the minimap (Use the same command to enable).  |
 | /hud:hideleveling | The specified command hides **ONLY** the leveling UI display (Use the same command to enable).         |
-|-------------------|--------------------------------------------------------------------------------------------------------|
 
 ## Screenshot Displays
 
