@@ -95,21 +95,6 @@ AddEventHandler("tp_dirtsystem:getCurrentDirtLevel", function(dirtLevel)
 	PlayerData.DirtLevel = dirtLevel
 end)
 
-if not Config.SaltyChat then
-
-	CreateThread(function()
-		while true do 
-			Wait(Config.VoicePressingDelay)
-	
-			PlayerData.IsTalking = IsControlPressed(0, Config.VoiceKey)
-
-			SendNUIMessage({ action = "UPDATE_VOICE_TALK_STATUS", isTalking = PlayerData.IsTalking })
-		end
-	end)
-
-end
-
-
 RegisterNetEvent("tpz_hud:setHiddenStatus")
 AddEventHandler("tpz_hud:setHiddenStatus", function(cb)
 	PlayerData.HasHiddenStatus = cb
@@ -366,3 +351,28 @@ Citizen.CreateThread(function()
 		end
     end
 end)
+
+if not Config.SaltyChat then
+
+    CreateThread(function()
+        local wasTalking = false
+
+        while true do 
+
+            Wait(Config.VoicePressingDelay)
+
+            local isTalking = IsControlPressed(0, Config.VoiceKey)
+
+            if isTalking ~= wasTalking then
+				
+                wasTalking = isTalking
+                PlayerData.IsTalking = isTalking
+
+                SendNUIMessage({ action = "UPDATE_VOICE_TALK_STATUS", isTalking = isTalking })
+            end
+
+        end
+		
+    end)
+
+end
