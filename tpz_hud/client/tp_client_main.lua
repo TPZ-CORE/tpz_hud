@@ -325,6 +325,7 @@ Citizen.CreateThread(function()
 	
 end)
 
+/* The specified thread is functional but there is an issue with mouse scrolling which also opens the weapon wheel menu.
 -- The following thread is hiding all the NUI when being on the weapon wheel menu.
 Citizen.CreateThread(function()
     while true do 
@@ -350,7 +351,7 @@ Citizen.CreateThread(function()
 
 		end
     end
-end)
+end)*/
 
 if not Config.SaltyChat then
 
