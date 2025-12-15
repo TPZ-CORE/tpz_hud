@@ -191,4 +191,64 @@ body {
 }
 
 
+@media (min-aspect-ratio: 21/9) {
+    
+    #minimapImageDisplay {
 
+        width: 11vw;
+        height: 11vw;
+
+        margin-left: 0.7%;
+        margin-top: 30%;
+    }
+
+    #varHunting {
+        margin-top: 17%;
+    }
+    
+    #varFarming {
+        margin-top: 20%;
+    }
+    
+    #varMining {
+        margin-top: 23%;
+    }
+    
+    #varLumberjacking {
+        margin-top: 26%;
+    }
+    
+    #varFishing {
+        margin-top: 29%;
+    }
+
+    #varMic {
+        margin-top: 37.5%;
+    }
+    
+    #varTemp  {
+        margin-top: 39%;
+    }
+
+    #varThirst {
+        margin-top: 38%;
+    }
+    
+    #varStress {
+        margin-top: 38%;
+    }
+    
+    #varAlcohol {
+        margin-top: 38%;
+    }
+    
+    #varDirt {
+        margin-top: 38%;
+
+    }
+
+    #varHunger {
+        margin-top: 38%;
+    }
+
+}
