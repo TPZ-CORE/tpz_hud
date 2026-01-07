@@ -136,29 +136,31 @@ window.addEventListener('message', function (event) {
         }
 
 
+
         if (event.data.hunting) {
             $("#varHunting small").text(Math.ceil(event.data.hunting.level));
-            $("#varHunting").attr("class", "c100 small first p"+ event.data.hunting.experience);
+            $("#varHunting").attr("class", "c100 small first p" + Math.trunc(event.data.hunting.experience));
         }
 
         if (event.data.farming) {
             $("#varFarming small").text(Math.ceil(event.data.farming.level));
-            $("#varFarming").attr("class", "c100 small first p"+ event.data.farming.experience);
+            $("#varFarming").attr("class", "c100 small first p" + Math.trunc(event.data.farming.experience));
         }
 
         if (event.data.mining) {
             $("#varMining small").text(Math.ceil(event.data.mining.level));
-            $("#varMining").attr("class", "c100 small first p"+ event.data.mining.experience);
+            $("#varMining").attr("class", "c100 small first p" + Math.trunc(event.data.mining.experience));
         }
 
         if (event.data.lumberjacking) {
             $("#varLumberjacking small").text(Math.ceil(event.data.lumberjacking.level));
-            $("#varLumberjacking").attr("class", "c100 small first p"+ event.data.lumberjacking.experience);
+            $("#varLumberjacking").attr("class", "c100 small first p" + Math.trunc(event.data.lumberjacking.experience));
+       
         }
 
         if (event.data.fishing) {
             $("#varFishing small").text(Math.ceil(event.data.fishing.level));
-            $("#varFishing").attr("class", "c100 small first p"+ event.data.fishing.experience);
+            $("#varFishing").attr("class", "c100 small first p" + Math.trunc(event.data.fishing.experience));
         }
     
     }
