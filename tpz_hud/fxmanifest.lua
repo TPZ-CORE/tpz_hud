@@ -4,7 +4,7 @@ game "rdr3"
 
 author 'Nosmakos'
 description 'TPZ-CORE - Metabolism & Leveling HUD'
-version '1.0.2'
+version '1.0.3'
 
 ui_page('html/index.html')
 
