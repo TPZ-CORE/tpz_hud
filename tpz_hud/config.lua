@@ -25,3 +25,6 @@ Config.TemperatureColors = {
     ['Cold']    = {temp = 0,  rgba = "rgb(22, 62, 126)" },
     ['Hot']     = {temp = 38, rgba = "rgb(129, 31, 31)" },
 }
+
+-- activates horse metabolism thirst and hunger icons and values.
+Config.UseHorseMetabolism = true -- 1.0.4
