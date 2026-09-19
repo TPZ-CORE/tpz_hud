@@ -97,16 +97,16 @@ AddEventHandler("tp_dirtsystem:getCurrentDirtLevel", function(dirtLevel)
 	PlayerData.DirtLevel = dirtLevel
 end)
 
--- Trigger when spawned and when flee.
-RegisterNetEvent("tpz_hud:horse:set_horse_entity") -- 1.0.4
-AddEventHandler("tpz_hud:horse:set_horse_entity", function(entity)
+-- Trigger on horse metabolism updates.
+RegisterNetEvent("tp_stables:horses:set_horse_entity") -- 1.0.4
+AddEventHandler("tp_stables:horses:set_horse_entity", function(entity)
 	PlayerData.SpawnedHorseEntity = entity
 	--print(entity)
 end)
 
--- Trigger on metabolism updates.
-RegisterNetEvent("tpz_hud:horse:set_values") -- 1.0.4
-AddEventHandler("tpz_hud:horse:set_values", function(entity, thirst, hunger)
+-- Trigger on horse metabolism updates.
+RegisterNetEvent("tp_stables:horses:set_values") -- 1.0.4
+AddEventHandler("tp_stables:horses:set_values", function(entity, thirst, hunger)
 	PlayerData.HorseThirst = thirst
 	PlayerData.HorseHunger = hunger
 
@@ -116,7 +116,6 @@ AddEventHandler("tpz_hud:horse:set_values", function(entity, thirst, hunger)
 
 	--print(thirst, hunger)
 end)
-
 
 RegisterNetEvent("tpz_hud:setHiddenStatus")
 AddEventHandler("tpz_hud:setHiddenStatus", function(cb)
