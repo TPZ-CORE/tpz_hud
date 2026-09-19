@@ -27,4 +27,4 @@ Config.TemperatureColors = {
 }
 
 -- activates horse metabolism thirst and hunger icons and values.
-Config.UseHorseMetabolism = true -- 1.0.4
+Config.UseHorseMetabolism = false -- 1.0.4
