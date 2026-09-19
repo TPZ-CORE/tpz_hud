@@ -13,6 +13,9 @@ local PlayerData = {
 	Temperature               = 0,
 
 	DirtLevel                 = 0,
+	HorseThirst               = 0, -- 1.0.4
+	HorseHunger               = 0, -- 1.0.4
+	SpawnedHorseEntity        = nil, -- 1.0.4
 
 	IsTalking                 = false,
 	VoiceRange                = Config.DefaultMicRange,
@@ -35,8 +38,7 @@ AddEventHandler("tpz_core:isPlayerReady", function()
     end
 
 	DisplayRadar(false)
-
-	SendNUIMessage({ action = "SET_HUD_DISPLAY_STATUS", status = false, hasLeveling = PlayerData.HasLevelingLoaded, hasDirtSystem = Config.tp_dirtsystem, hasStress = Config.DisplayStress})
+	SendNUIMessage({ action = "SET_HUD_DISPLAY_STATUS", status = false, hasLeveling = PlayerData.HasLevelingLoaded, hasDirtSystem = Config.tp_dirtsystem, hasStress = Config.DisplayStress, hasHorse = false})
 
 	if Config.DevMode then
 
@@ -47,7 +49,7 @@ AddEventHandler("tpz_core:isPlayerReady", function()
 			PlayerData.HasMetabolismLoaded = true
 			PlayerData.HasLevelingLoaded   = true
 
-			SendNUIMessage({ action = "SET_HUD_DISPLAY_STATUS", status = true, hasLeveling = PlayerData.HasLevelingLoaded, hasDirtSystem = Config.tp_dirtsystem, hasStress = Config.DisplayStress})
+			SendNUIMessage({ action = "SET_HUD_DISPLAY_STATUS", status = true, hasLeveling = PlayerData.HasLevelingLoaded, hasDirtSystem = Config.tp_dirtsystem, hasStress = Config.DisplayStress, hasHorse = false})
 
 			PlayerData.HasHUDDisplayed     = true
 
@@ -74,7 +76,7 @@ end)
 AddEventHandler("tpz_metabolism:isLoaded", function()
 	PlayerData.HasMetabolismLoaded = true
 
-	SendNUIMessage({ action = "SET_HUD_DISPLAY_STATUS", status = true, hasLeveling = PlayerData.HasLevelingLoaded, hasDirtSystem = Config.tp_dirtsystem, hasStress = Config.DisplayStress})
+	SendNUIMessage({ action = "SET_HUD_DISPLAY_STATUS", status = true, hasLeveling = PlayerData.HasLevelingLoaded, hasDirtSystem = Config.tp_dirtsystem, hasStress = Config.DisplayStress, hasHorse = false})
 	PlayerData.HasHUDDisplayed = true
 end)
 
@@ -94,6 +96,27 @@ end)
 AddEventHandler("tp_dirtsystem:getCurrentDirtLevel", function(dirtLevel)
 	PlayerData.DirtLevel = dirtLevel
 end)
+
+-- Trigger when spawned and when flee.
+RegisterNetEvent("tpz_hud:horse:set_horse_entity") -- 1.0.4
+AddEventHandler("tpz_hud:horse:set_horse_entity", function(entity)
+	PlayerData.SpawnedHorseEntity = entity
+	--print(entity)
+end)
+
+-- Trigger on metabolism updates.
+RegisterNetEvent("tpz_hud:horse:set_values") -- 1.0.4
+AddEventHandler("tpz_hud:horse:set_values", function(entity, thirst, hunger)
+	PlayerData.HorseThirst = thirst
+	PlayerData.HorseHunger = hunger
+
+	if PlayerData.SpawnedHorseEntity == nil then 
+		PlayerData.SpawnedHorseEntity = entity 
+	end
+
+	--print(thirst, hunger)
+end)
+
 
 RegisterNetEvent("tpz_hud:setHiddenStatus")
 AddEventHandler("tpz_hud:setHiddenStatus", function(cb)
@@ -126,14 +149,14 @@ if Config.DevMode then
 	Citizen.CreateThread(function ()
 		
 		DisplayRadar(false)
-		SendNUIMessage({ action = "SET_HUD_DISPLAY_STATUS", status = false, hasLeveling = PlayerData.HasLevelingLoaded, hasDirtSystem = Config.tp_dirtsystem, hasStress = Config.DisplayStress})
+		SendNUIMessage({ action = "SET_HUD_DISPLAY_STATUS", status = false, hasLeveling = PlayerData.HasLevelingLoaded, hasDirtSystem = Config.tp_dirtsystem, hasStress = Config.DisplayStress, hasHorse = false})
 	
 		TriggerEvent("tpz_metabolism:requestMetabolismData")
 
 		PlayerData.HasMetabolismLoaded = true
 		PlayerData.HasLevelingLoaded   = true
 
-		SendNUIMessage({ action = "SET_HUD_DISPLAY_STATUS", status = true, hasLeveling = PlayerData.HasLevelingLoaded, hasDirtSystem = Config.tp_dirtsystem, hasStress = Config.DisplayStress})
+		SendNUIMessage({ action = "SET_HUD_DISPLAY_STATUS", status = true, hasLeveling = PlayerData.HasLevelingLoaded, hasDirtSystem = Config.tp_dirtsystem, hasStress = Config.DisplayStress, hasHorse = false})
 
 		PlayerData.HasHUDDisplayed     = true
 
@@ -196,8 +219,8 @@ Citizen.CreateThread(function()
 					tempPercentColor = Config.TemperatureColors['Hot'].rgba
 				end
 	
-				local huntingLevel, farmingLevel, miningLevel, lumberjackingLevel, fishingLevel = 1, 1, 1, 1, 1
-				local huntingExperience, farmingExperience, miningExperience, lumberjackingExperience, fishingExperience = 0, 0, 0, 0, 0
+				local criminalLevel, huntingLevel, farmingLevel, miningLevel, lumberjackingLevel, fishingLevel = 0, 1, 1, 1, 1, 1
+				local criminalExperience, huntingExperience, farmingExperience, miningExperience, lumberjackingExperience, fishingExperience = 0, 0, 0, 0, 0, 0
 	
 
 				if PlayerData.Hunger == 0 then
@@ -222,6 +245,8 @@ Citizen.CreateThread(function()
 
 				if PlayerData.HasLevelingLoaded and Config.tpz_leveling then
 
+					criminalLevel, criminalExperience = GetLevelData("criminal")
+
 					lumberjackingLevel, lumberjackingExperience = GetLevelData("lumberjack")
 					huntingLevel, huntingExperience             = GetLevelData("hunting")
 					farmingLevel, farmingExperience             = GetLevelData("farming")
@@ -230,7 +255,9 @@ Citizen.CreateThread(function()
 
 					SendNUIMessage({
 						action = "UPDATE_HUD_STATUS",
-	
+
+						criminal = { level = criminalLevel, experience = ( (criminalExperience * 100) / 1000) },
+
 						lumberjacking = { level = lumberjackingLevel, experience = ( (lumberjackingExperience * 100) / 1000) },
 						hunting       = { level = huntingLevel,       experience = ( (huntingExperience * 100) / 1000) },
 						farming       = { level = farmingLevel,       experience = ( (farmingExperience * 100) / 1000) },
@@ -249,6 +276,9 @@ Citizen.CreateThread(function()
 						alcohol = PlayerData.Alcohol,
 	
 						voice = (PlayerData.VoiceRange * 100) / 32,
+
+						horse_thirst = PlayerData.HorseThirst, -- 1.0.4
+						horse_hunger = PlayerData.HorseHunger -- 1.0.4
 					})
 
 				else
@@ -268,6 +298,9 @@ Citizen.CreateThread(function()
 						alcohol = PlayerData.Alcohol,
 
 						voice = (PlayerData.VoiceRange * 100) / 32,
+
+						horse_thirst = PlayerData.HorseThirst, -- 1.0.4
+						horse_hunger = PlayerData.HorseHunger -- 1.0.4
 					})
 
 				end
@@ -282,6 +315,44 @@ Citizen.CreateThread(function()
     end
 end)
 
+if Config.UseHorseMetabolism then
+
+	local isActive = false 
+
+	CreateThread(function()
+
+		while true do 
+
+			Wait(1000)
+	
+			if PlayerData.IndicatorStatus then
+				local activeHorseMetabolism = false
+	
+				if Config.UseHorseMetabolism and PlayerData.SpawnedHorseEntity ~= nil then -- 1.0.4
+		
+					if IsPedOnMount(PlayerPedId()) then
+		
+						local horse = GetMount(PlayerPedId())
+						local rider = GetRiderOfMount(horse, true)
+		
+						if horse == PlayerData.SpawnedHorseEntity and rider == PlayerPedId() then
+		
+							activeHorseMetabolism = true
+						end
+		
+					end
+				end
+	
+				SendNUIMessage({ action = "SET_HUD_DISPLAY_HORSE_STATUS", hasHorse = activeHorseMetabolism })
+
+			end
+
+		end
+
+	end)
+
+end
+
 Citizen.CreateThread(function()
 
 	while true do
@@ -293,6 +364,24 @@ Citizen.CreateThread(function()
 
 		local isIndicatorsActive = Citizen.InvokeNative(0x2CC24A2A7A1489C4)
 
+		local activeHorseMetabolism = false
+	
+		if Config.UseHorseMetabolism and PlayerData.SpawnedHorseEntity ~= nil then -- 1.0.4
+
+			if IsPedOnMount(PlayerPedId()) then
+
+				local horse = GetMount(PlayerPedId())
+				local rider = GetRiderOfMount(horse, true)
+
+				if horse == PlayerData.SpawnedHorseEntity and rider == PlayerPedId() then
+
+					activeHorseMetabolism = true
+				end
+
+			end
+		end
+
+
 		if PlayerData.HasMetabolismLoaded then
 
 			if not isIndicatorsActive then
@@ -301,7 +390,7 @@ Citizen.CreateThread(function()
 
 					PlayerData.IndicatorStatus = false
 
-					SendNUIMessage({ action = "SET_HUD_DISPLAY_STATUS", status = false, hasLeveling = PlayerData.HasLevelingLoaded, hasDirtSystem = Config.tp_dirtsystem, hasStress = Config.DisplayStress })
+					SendNUIMessage({ action = "SET_HUD_DISPLAY_STATUS", status = false, hasLeveling = PlayerData.HasLevelingLoaded, hasDirtSystem = Config.tp_dirtsystem, hasStress = Config.DisplayStress, hasHorse = activeHorseMetabolism })
 
 					SendNUIMessage({ action = "SET_LEVELING_DISPLAY_STATUS", status = false})
 
@@ -312,7 +401,7 @@ Citizen.CreateThread(function()
 
 					PlayerData.IndicatorStatus = true
 
-					SendNUIMessage({ action = "SET_HUD_DISPLAY_STATUS", status = true, hasLeveling = PlayerData.HasLevelingLoaded, hasDirtSystem = Config.tp_dirtsystem, hasStress = Config.DisplayStress })
+					SendNUIMessage({ action = "SET_HUD_DISPLAY_STATUS", status = true, hasLeveling = PlayerData.HasLevelingLoaded, hasDirtSystem = Config.tp_dirtsystem, hasStress = Config.DisplayStress, hasHorse = activeHorseMetabolism })
 
 					if PlayerData.HasLevelingLoaded then
 						SendNUIMessage({ action = "SET_LEVELING_DISPLAY_STATUS", status = true})
@@ -325,7 +414,7 @@ Citizen.CreateThread(function()
 	
 end)
 
-/* The specified thread is functional but there is an issue with mouse scrolling which also opens the weapon wheel menu.
+/*
 -- The following thread is hiding all the NUI when being on the weapon wheel menu.
 Citizen.CreateThread(function()
     while true do 
