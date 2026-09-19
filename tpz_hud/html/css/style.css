@@ -53,13 +53,19 @@ body {
 }
 
 
-#varHunger {
+#varHunger,
+#varHorseHunger {
     position: absolute;
 
     left: 18%;
     margin-top: 51%;
 
     background-color: #161616a8;
+}
+
+#varHorseHunger {
+    left: 15.3%;
+    margin-top: 42.3%;
 }
 
 #varHungerRadar {
@@ -80,7 +86,8 @@ body {
 }
 
 
-#varThirst {
+#varThirst,
+#varHorseThirst {
     position: absolute;
 
     left: 21.5%;
@@ -88,6 +95,11 @@ body {
 
     background-color: #161616a8;
 
+}
+
+#varHorseThirst {
+    left: 16.5%;
+    margin-top: 45.3%;
 }
 
 #varStress {
@@ -257,6 +269,8 @@ body {
         margin-top: 38%;
     }
 
+
+
     #varStress {
         margin-top: 38%;
     }
@@ -357,4 +371,16 @@ body {
         background-color: #161616a8;
 
     }
+
+    #varHorseHunger {
+        left: 16%;
+        margin-top: 47.5%;
+    }
+
+    #varHorseThirst {
+        left: 16.8%;
+        margin-top: 50.4%;
+
+    }
+
 }
