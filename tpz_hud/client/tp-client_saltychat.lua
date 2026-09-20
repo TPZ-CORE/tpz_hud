@@ -4,7 +4,7 @@ if Config.SaltyChat then
     local isChangingRange = false
     local changedRange    = 0
 
-    if Config.ChangingRangeData.Enabled then
+    if Config.SaltyChatChangingRange.Enabled then
 
         -- @param voiceRange 	        float 	current voice range
         -- @param index 	            int 	index of the current voice range (starts at 0)
@@ -26,7 +26,7 @@ if Config.SaltyChat then
                 Citizen.Wait(0)
         
                 if isChangingRange then
-                    local data   = Config.ChangingRangeData.RGBA
+                    local data   = Config.SaltyChatChangingRange.RGBA
                     local coords = GetEntityCoords(PlayerPedId())
     
                     Citizen.InvokeNative(0x2A32FAA57B937173, 0x94FDAE17, coords.x, coords.y, coords.z - 1.0, 0, 0, 0, 0, 0, 0, changedRange, changedRange, 2.0, 
