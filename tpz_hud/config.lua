@@ -29,6 +29,7 @@ Config.TemperatureColors = {
 -- activates horse metabolism thirst and hunger icons and values.
 Config.UseHorseMetabolism = false -- 1.0.4
 
+-- This is for SaltyChat ONLY to allow range change.
 Config.SaltyChatChangingRange = { -- 1.0.4
     Enabled = true,
 
