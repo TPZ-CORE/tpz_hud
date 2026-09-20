@@ -47,7 +47,7 @@ window.addEventListener('message', function (event) {
     } else if (event.data.action == 'SET_HUD_DISPLAY_STATUS') {
 
         // Minimap Circular Background Image.
-        event.data.status ? $('minimapImageDisplay').show() : $('minimapImageDisplay').hide();
+        event.data.status ? $('#minimapImageDisplay').show() : $('#minimapImageDisplay').hide();
 
         // Default HUD Elements.
         DEFAULT_ELEMENTS_LIST.forEach((element) => {
